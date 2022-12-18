@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .grid-wrapper {
@@ -14,12 +15,12 @@
     "burner-1 burner-2"
     "burner-3 burner-4";
 }
-
 .burner-1 {
   grid-template-areas: "burner-1";
   display: flex;
   justify-content: right;
 }
+
 .burner-2 {
   grid-template-areas: "burner-2";
   display: flex;
@@ -58,6 +59,9 @@
   100% {
     box-shadow: 0 0 8px #ea4c89, inset 0 0 8px #ea4c89;
   }
+}
+@keyframes blinker {  
+  50% { opacity: 0; }
 }
 
 .circle1 {
