@@ -235,3 +235,71 @@
   font-size: 3vh;
   font-weight: 500;
 }
+@media only screen and (max-width: 670px) {
+  .circle1 {
+  
+  border: 1.75vw solid #bd0048;
+  height: 35vw;
+  width: 35vw;
+}
+
+.circle2 {
+
+  border: 1.75vw solid #bd0048;
+  height: 40vw;
+  width: 40vw;
+
+}
+
+.circle3 {
+  border: 1.75vw solid #bd0048;
+  height: 45vw;
+  width: 45vw;
+
+}
+
+.circle1-glowing {
+  border: 1.75vw solid #bd0048;
+  height: 35vw;
+  width: 35vw;
+
+}
+
+.circle2-glowing {
+  border: 1.75vw solid #bd0048;
+  height: 40vw;
+  width: 40vw;
+}
+
+.circle3-glowing {
+  border: 1.75vw solid #bd0048;
+  height: 45vw;
+  width: 45vw;
+}
+
+.buttons {
+  width: 20vw;
+}
+
+.start-button {
+  margin-right: 1vw;
+  border-radius: 1vw;
+  font-size: 2vw;
+  height: 5vw;
+}
+
+.reset-button {
+  border-radius: 1vw;
+  font-size: 2vw;
+  height: 5vw;
+}
+
+.elapsed-time {
+  height: 10vw;
+  font-size: 7vw;
+}
+.input {
+  width: 15vw;
+  font-size: 3vw;
+}
+}
