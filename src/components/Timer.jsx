@@ -11,7 +11,7 @@ const Blinker = styled.div(
   ({ isFinished }) => css`
     ${isFinished &&
     css`
-      background-color: #e7f922;
+      background-color: rgb(238, 231, 137);
       border-radius: 50%;
       animation: blinker 1s linear infinite;
     `}
@@ -43,6 +43,10 @@ export default function Timer({ burnerName, burnerClassName }) {
 
   const handleTimeInput = (event) => {
     setInitialTime(event.target.value);
+  };
+
+  const handleInputFocus = (event) => {
+    setIsFinished(false);
   };
 
   // useEffect hook to update the remaining time every second
@@ -97,6 +101,7 @@ export default function Timer({ burnerName, burnerClassName }) {
                 step={1}
                 value={initialTime}
                 onChange={handleTimeInput}
+                onFocus={handleInputFocus}
                 placeholder="minutes"
               />
               <div className="elapsed-time">
