@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
+import useSound from "use-sound";
+import BottomLeft from "../sounds/bottom-left.mp3";
+import BottomRight from "../sounds/bottom-right.mp3";
+import UpperLeft from "../sounds/upper-left.mp3";
+import UpperRight from "../sounds/upper-right.mp3";
 
-export default function Timer() {
+export default function Timer({ burnerName, burnerClassName }) {
   // State to hold the remaining time in seconds
   const [remainingTime, setRemainingTime] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
   const [initialTime, setInitialTime] = useState("");
+  const [BottomLeftSound] = useSound(BottomLeft);
+  const [BottomRightSound] = useSound(BottomRight);
+  const [UpperLeftSound] = useSound(UpperLeft);
+  const [UpperRightSound] = useSound(UpperRight);
 
   const onTimeExpired = () => {
-    alert("Time expired!");
+    playSound();
     setIsRunning(false);
     setRemainingTime(null);
   };
+
+  function playSound() {
+    burnerName === "burner-1" && UpperLeftSound();
+    burnerName === "burner-2" && UpperRightSound();
+    burnerName === "burner-3" && BottomLeftSound();
+    burnerName === "burner-4" && BottomRightSound();
+  }
 
   const resetTimer = () => {
     setIsRunning(false);
@@ -55,10 +71,10 @@ export default function Timer() {
 
   // Render the remaining time in the format MM:SS
   return (
-    <div className="main">
-      <div className="circle3">
-        <div className="circle2">
-          <div className="circle1">
+    <div className={burnerClassName}>
+      <div className={isRunning ? "circle3-glowing" : "circle3"}>
+        <div className={isRunning ? "circle2-glowing" : "circle2"}>
+          <div className={isRunning ? "circle1-glowing" : "circle1"}>
             <input
               className="input"
               type="number"
