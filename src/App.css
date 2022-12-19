@@ -9,7 +9,7 @@
 .grid-wrapper {
   display: grid;
   gap: 10px;
-
+  padding-top: 20px;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
     "burner-1 burner-2"
@@ -69,7 +69,7 @@
 .circle1 {
   display: flex;
   flex-direction: column;
-  border: 1.75vh solid #bd0048;
+  border: 1.75vh solid #474546;
   border-radius: 50%;
   height: 35vh;
   width: 35vh;
@@ -81,7 +81,7 @@
 .circle2 {
   display: flex;
   flex-direction: column;
-  border: 1.75vh solid #bd0048;
+  border: 1.75vh solid #474546;
   border-radius: 50%;
   height: 40vh;
   width: 40vh;
@@ -93,7 +93,7 @@
 .circle3 {
   display: flex;
   flex-direction: column;
-  border: 1.75vh solid #bd0048;
+  border: 1.75vh solid #474546;
   border-radius: 50%;
   height: 45vh;
   width: 45vh;
@@ -243,19 +243,19 @@
 }
 @media only screen and (max-width: 670px) {
   .circle1 {
-    border: 1.75vw solid #bd0048;
+    border: 1.75vw solid #474546;
     height: 35vw;
     width: 35vw;
   }
 
   .circle2 {
-    border: 1.75vw solid #bd0048;
+    border: 1.75vw solid #474546;
     height: 40vw;
     width: 40vw;
   }
 
   .circle3 {
-    border: 1.75vw solid #bd0048;
+    border: 1.75vw solid #474546;
     height: 45vw;
     width: 45vw;
   }

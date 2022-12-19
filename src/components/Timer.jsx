@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 import BottomLeft from "../sounds/bottom-left.mp3";
 import BottomRight from "../sounds/bottom-right.mp3";
 import UpperLeft from "../sounds/upper-left.mp3";
-import UpperRight from "../sounds/upper-right.mp3";
+import UpperRight from "../sounds/upper-right-2.mp3";
 
 const Blinker = styled.div(
   ({ isFinished }) => css`
@@ -24,16 +24,17 @@ export default function Timer({ burnerName, burnerClassName }) {
   const [isRunning, setIsRunning] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [initialTime, setInitialTime] = useState("");
-  const [BottomLeftSound] = useSound(BottomLeft);
-  const [BottomRightSound] = useSound(BottomRight);
-  const [UpperLeftSound] = useSound(UpperLeft);
-  const [UpperRightSound] = useSound(UpperRight);
+  const [BottomLeftSound] = useSound(BottomLeft, { loop: true });
+  const [BottomRightSound] = useSound(BottomRight, { loop: true });
+  const [UpperLeftSound] = useSound(UpperLeft, { loop: true });
+  const [UpperRightSound] = useSound(UpperRight, { loop: true });
 
   function resetTimer() {
     setIsRunning(false);
     setRemainingTime(null);
     setInitialTime("");
     setIsFinished(false);
+    
   }
 
   const startTimer = () => {
