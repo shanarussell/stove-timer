@@ -24,22 +24,30 @@ export default function Timer({ burnerName, burnerClassName }) {
   const [isRunning, setIsRunning] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [initialTime, setInitialTime] = useState("");
-  const [BottomLeftSound] = useSound(BottomLeft, { loop: true });
-  const [BottomRightSound] = useSound(BottomRight, { loop: true });
+  const [BottomLeftSound] = useSound(BottomLeft);
+  const [BottomRightSound] = useSound(BottomRight);
   const [UpperLeftSound] = useSound(UpperLeft, { loop: true });
-  const [UpperRightSound] = useSound(UpperRight, { loop: true });
+  const [UpperRightSound] = useSound(UpperRight);
+  const [currentSound, setCurrentSound] = useState();
+  const [play] = useSound([currentSound]);
+  const [stop] = useSound([currentSound]);
 
   function resetTimer() {
+    console.log(currentSound);
     setIsRunning(false);
     setRemainingTime(null);
     setInitialTime("");
     setIsFinished(false);
-    
+    stop();
   }
 
   const startTimer = () => {
     setIsRunning(true);
     setRemainingTime(60 * initialTime);
+    burnerName === "burner-1" && setCurrentSound(UpperLeftSound);
+    burnerName === "burner-2" && setCurrentSound(UpperRightSound);
+    burnerName === "burner-3" && setCurrentSound(BottomLeftSound);
+    burnerName === "burner-4" && setCurrentSound(BottomRightSound);
   };
 
   const handleTimeInput = (event) => {
@@ -61,22 +69,13 @@ export default function Timer({ burnerName, burnerClassName }) {
 
     if (remainingTime === 0) {
       setIsRunning(false);
-      setRemainingTime(null);
-      setInitialTime("");
       setIsFinished(true);
-      burnerName === "burner-1" && UpperLeftSound();
-      burnerName === "burner-2" && UpperRightSound();
-      burnerName === "burner-3" && BottomLeftSound();
-      burnerName === "burner-4" && BottomRightSound();
+      
+      play();
+      setInitialTime("");
+      setRemainingTime(null);
     }
-  }, [
-    BottomLeftSound,
-    BottomRightSound,
-    UpperLeftSound,
-    UpperRightSound,
-    burnerName,
-    remainingTime,
-  ]);
+  }, [isRunning, remainingTime]);
 
   const handleElapsedTime = () => {
     const minutes = Math.floor(remainingTime / 60).toString();
