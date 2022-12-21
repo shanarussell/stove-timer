@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "../App.css";
-import useSound from "use-sound";
 import styled, { css } from "styled-components";
-import BottomLeft from "../sounds/bottom-left.mp3";
-import BottomRight from "../sounds/bottom-right.mp3";
-import UpperLeft from "../sounds/upper-left.mp3";
-import UpperRight from "../sounds/upper-right-2.mp3";
+import BottomLeftSound from "../sounds/bottom-left.mp3";
+import BottomRightSound from "../sounds/bottom-right.mp3";
+import UpperLeftSound from "../sounds/upper-left.mp3";
+import UpperRightSound from "../sounds/upper-right-2.mp3";
 
 const Blinker = styled.div(
   ({ isFinished }) => css`
@@ -18,36 +17,53 @@ const Blinker = styled.div(
   `
 );
 
-export default function Timer({ burnerName, burnerClassName }) {
-  // State to hold the remaining time in seconds
+export default function Timer({ burnerClassName }) {
   const [remainingTime, setRemainingTime] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [initialTime, setInitialTime] = useState("");
-  const [BottomLeftSound] = useSound(BottomLeft);
-  const [BottomRightSound] = useSound(BottomRight);
-  const [UpperLeftSound] = useSound(UpperLeft, { loop: true });
-  const [UpperRightSound] = useSound(UpperRight);
-  const [currentSound, setCurrentSound] = useState();
-  const [play] = useSound([currentSound]);
-  const [stop] = useSound([currentSound]);
 
+  const upperLeft = useMemo(() => {
+    return new Audio(UpperLeftSound);
+  }, []);
+  const bottomLeft = useMemo(() => {
+    return new Audio(BottomLeftSound);
+  }, []);
+  const bottomRight = useMemo(() => {
+    return new Audio(BottomRightSound);
+  }, []);
+  const upperRight = useMemo(() => {
+    return new Audio(UpperRightSound);
+  }, []);
+
+  function playSound() {
+    burnerClassName === "burner-1" && upperLeft.play();
+    upperLeft.loop = true;
+    burnerClassName === "burner-2" && upperRight.play();
+    upperRight.loop = true;
+    burnerClassName === "burner-3" && bottomLeft.play();
+    bottomLeft.loop = true;
+    burnerClassName === "burner-4" && bottomRight.play();
+    bottomRight.loop = true;
+  }
+
+  function stopSound() {
+    upperLeft.pause();
+    upperRight.pause();
+    bottomLeft.pause();
+    bottomRight.pause();
+  }
   function resetTimer() {
-    console.log(currentSound);
+    stopSound();
     setIsRunning(false);
     setRemainingTime(null);
     setInitialTime("");
     setIsFinished(false);
-    stop();
   }
 
   const startTimer = () => {
     setIsRunning(true);
     setRemainingTime(60 * initialTime);
-    burnerName === "burner-1" && setCurrentSound(UpperLeftSound);
-    burnerName === "burner-2" && setCurrentSound(UpperRightSound);
-    burnerName === "burner-3" && setCurrentSound(BottomLeftSound);
-    burnerName === "burner-4" && setCurrentSound(BottomRightSound);
   };
 
   const handleTimeInput = (event) => {
@@ -70,12 +86,11 @@ export default function Timer({ burnerName, burnerClassName }) {
     if (remainingTime === 0) {
       setIsRunning(false);
       setIsFinished(true);
-      
-      play();
+      playSound();
       setInitialTime("");
       setRemainingTime(null);
     }
-  }, [isRunning, remainingTime]);
+  }, [isRunning, remainingTime, upperLeft]);
 
   const handleElapsedTime = () => {
     const minutes = Math.floor(remainingTime / 60).toString();
